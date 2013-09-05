@@ -61,6 +61,12 @@ class ListsController < ApplicationController
     end
   end
 
+
+  def tasks
+    @list = List.find(params[:id])
+    @tasks = @list.tasks
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_list
