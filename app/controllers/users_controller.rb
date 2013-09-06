@@ -61,6 +61,13 @@ class UsersController < ApplicationController
     end
   end
 
+  def planner
+    @limit_tasks = 3
+    @user = User.find(params[:id])
+    @lists = @user.lists
+    @new_task = Task.new();
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_user

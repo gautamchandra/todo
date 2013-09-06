@@ -1,0 +1,23 @@
+<% id =  task.id %>
+<ul class="task" id="task_<%= id%>" data-url= <%= task_path(task)%> >
+    <input type="checkbox" class="task_checkbox <%= @task_status %>" 
+    id = "task_cb_<%= task.id %>" 
+    data-url = <%= task_path(task) %>
+    >
+
+    <span class = "task_name <%= @task_status %> " id = "task_name_<%= task.id %>" contentEditable="true" >
+      <%= task.name %>
+    </span>
+
+    <a  href="#" class="btn btn-small task_save" style="display:none">
+    <i class="icon-ok"></i>
+    </a>
+
+
+    <a  class="btn btn-small  task_trash" data-url= <%= task_path(task) %>>
+    <i class="icon-trash"></i>
+    </a>
+
+
+      <!-- <span><%= task.due %></span> -->
+    </ul>

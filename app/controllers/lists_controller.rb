@@ -65,6 +65,7 @@ class ListsController < ApplicationController
   def tasks
     @list = List.find(params[:id])
     @tasks = @list.tasks
+    @new_task = @list.tasks.new();
   end
 
   private

@@ -1,0 +1,6 @@
+<%= render 'layouts/task_form' %>
+
+<%= @lists.each do |list| %>
+<%= render 'layouts/show_tasks_in_lists', :list => list, :tasks => list.tasks %>
+<% end %>
+	

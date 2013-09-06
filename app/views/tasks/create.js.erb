@@ -1,0 +1,32 @@
+//get the list id: 
+// get the list element 
+// create the task and put the code inside it
+
+{
+<% 
+	if @task.list_id?
+		id = @task.list_id
+	else
+		id = "";
+	end
+%>
+
+var list_id;
+
+list_id = "<%= id %>";
+
+list_id = "#" + "task_container_" + list_id;
+list_ele = $(list_id);
+
+
+// list_ele.html('hello');
+
+if(list_ele.length != 0)
+{
+	<% html =  render('layouts/task',:task => @task) %>
+	 	list_ele.prepend("<%= escape_javascript(html) %>");
+}
+
+reset_task_form();
+
+}

@@ -1,0 +1,29 @@
+@import "bootstrap";
+
+
+.hidden{
+	display:none;
+}
+
+.task.ajaxing {
+
+}
+
+.task.editing .task_name{
+	font-size: 20px;
+}
+
+.task.finished {
+		color: grey;
+		text-decoration:line-through;
+}
+
+.task {
+	.task_trash {
+		visibility: hidden;
+	}
+
+	&:hover .task_trash{
+		visibility: visible;
+	}
+}

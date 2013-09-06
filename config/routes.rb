@@ -6,6 +6,7 @@ Todo::Application.routes.draw do
   resources :tasks
 
   match 'lists/:id/tasks',  to: 'lists#tasks',   via: 'get'
+  match 'users/:id/planner',  to: 'users#planner',   via: 'get'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

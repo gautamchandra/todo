@@ -1,0 +1,14 @@
+<% if tasks then %>
+
+<% tasks.each do |task| %>
+
+<% @task_status = "" %>
+<% if task.status? 
+  @task_status = "checked" 
+end 
+%>
+
+<%= render 'layouts/task', :task=>task %>
+
+<% end %>
+<% end %> 

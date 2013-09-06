@@ -1,0 +1,20 @@
+<% if defined? @new_task then %>
+
+<%= form_for(@new_task,remote: true,html: {:class => "task_form"})  do |f| %>
+
+<div class="field">
+  <%= f.text_field :name %>
+</div>
+
+<div class="field hidden">
+  <%= f.label :list_id %><br>
+  <%= f.number_field :list_id %>
+</div>
+
+<div class="actions hidden" >
+  <%= f.submit %>
+</div>
+
+<% end %>
+
+<% end %>
