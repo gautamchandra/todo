@@ -25,9 +25,9 @@ class ListsController < ApplicationController
   # POST /lists.json
   def create
     @list = List.new(list_params)
-
     respond_to do |format|
       if @list.save
+        @new_task = @list.tasks.new();
         format.html { redirect_to @list, notice: 'List was successfully created.' }
         format.json { render action: 'show', status: :created, location: @list }
         format.js

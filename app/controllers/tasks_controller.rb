@@ -34,6 +34,7 @@ class TasksController < ApplicationController
       else
         format.html { render action: 'new' }
         format.json { render json: @task.errors, status: :unprocessable_entity }
+        # format.js { render action: 'create_failure', locals: {item: @task}}
       end
     end
   end

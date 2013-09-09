@@ -20,7 +20,7 @@ function move_to_finished_top(task_obj,list_obj)
 
 
 
-function reset_task_form () {
+function reset_task_form (list) {
 // if in the list page, do not reset the list element 
 	// otherwise reset it
 
@@ -28,7 +28,7 @@ function reset_task_form () {
 // clear the contents of the input text field 
 // or do some mag
 
-	$('#task_name').val('');
+	list.find('.task_name').val('');
 }
 
 function task_saving_done (jq_task) {
@@ -48,14 +48,6 @@ $(function(){
 		$(this).prop('checked',true);
 		$(this).parents('.task').addClass('finished');
 	});
-
-	$(document).keyup(function(e) {
-  		if (e.keyCode == 27) {
-  			$('.list.hidden').removeClass("hidden").show('fast');
-  			reset_task_form();
-  		}   // esc
-	});
-
 
 	if($('.list_specific_view').length )
 	{
@@ -84,28 +76,6 @@ $(function(){
 
  // In that case: $target.hide('slow', function(){ $target.remove(); });
 
-	$(document).on('click','.list_plus', function  (e) {
-		e.preventDefault();
-
-		ele = $(this).parent(".list");
-		var list_id = ele.attr("id");
-
-		//select all lists except this one
-		var not_selector = ".list:not(#" + list_id + ")";
-
-		$(not_selector).hide('fast',function  () {
-			$(not_selector).addClass("hidden");
-		});
-		
-
-		//put the value of list id to this id: 
-		list_id = list_id.replace("list_","");
-		$('#task_list_id').val(list_id);
-
-		$('#task_name').focus();
-
-	});
-
 	//trigger task name save when enter is pressed when task name is editing
 	$(document).on('keypress','.task.editing', function  (event){
 		   if (event.keyCode == 13) {
@@ -118,6 +88,10 @@ $(function(){
 		//see if there is any task getting updated 
 
 		//if nothing else is being edited:
+
+
+		//select all the text - UI improvement
+		document.execCommand('selectAll',false,null);
 		
 		var task_ele = $(this).parent('.task').addClass('editing');
 		var save_ele = $(this).siblings('.task_save').show('fast');

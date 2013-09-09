@@ -27,6 +27,8 @@ if(list_ele.length != 0)
 	 	list_ele.prepend("<%= escape_javascript(html) %>");
 }
 
-reset_task_form();
+//reset the task form of the list
+list_ele = list_ele.parents('.list:first');
+reset_task_form(list_ele);
 
 }
