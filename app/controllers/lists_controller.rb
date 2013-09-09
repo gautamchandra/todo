@@ -30,6 +30,7 @@ class ListsController < ApplicationController
       if @list.save
         format.html { redirect_to @list, notice: 'List was successfully created.' }
         format.json { render action: 'show', status: :created, location: @list }
+        format.js
       else
         format.html { render action: 'new' }
         format.json { render json: @list.errors, status: :unprocessable_entity }

@@ -1,7 +1,18 @@
 <ul class="list" id="list_<%= list.id %>" data-url= <%= list_path(list)%> >
-<h2 class="list_name" ><%= list.name %></h2>
-	<a href="#" class="btn btn-success list_plus" >
-	<i class="icon-white icon-plus"></i> </a>
+<span class="list_name" contentEditable="true" ><%= list.name %></span>
+	<a href="#" class="btn btn-small list_plus" >
+	<i class="icon-plus"></i> </a>
+	
+	<a  href="#" class="btn btn-small list_save" style="display:none">
+    <i class="icon-ok"></i>
+    </a>
+
+    <a  class="btn btn-small  list_trash" >
+    <i class="icon-trash"></i>
+    </a>
+
+<%= render 'layouts/task_form', :new_task => new_task, :form_namespace => "l_#{list.id}" %>
+
 <!-- The below form is avaiable only under lists->tasks view -->
 <ul class="task_container" id="task_container_<%= list.id %>">
 	<%= render 'layouts/tasks', :tasks=> tasks %>

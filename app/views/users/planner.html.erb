@@ -1,6 +1,23 @@
-<%= render 'layouts/task_form' %>
 
-<%= @lists.each do |list| %>
-<%= render 'layouts/show_tasks_in_lists', :list => list, :tasks => list.tasks %>
+<!-- form for a new list  -->
+<%= form_for(@new_list, :remote => true) do |f| %>
+  <div class="field hidden">
+    <%= f.label :name %><br>
+    <%= f.text_field :name %>
+  </div>
+  <div class="field hidden">
+    <%= f.label :user_id %><br>
+    <%= f.number_field :user_id %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
 <% end %>
-	
+
+
+<ul class="list_container">
+<%= @lists.each do |list| %>
+<%= render 'layouts/show_tasks_in_lists', :list => list, :tasks => list.tasks.order('status'),
+								:new_task => list.tasks.new() %>
+<% end %>
+</ul>	

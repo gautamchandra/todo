@@ -1,3 +1,24 @@
+function move_to_unfinished_top (task_obj,list_obj) {
+	var first_task = list_obj.find('.task:first');
+	if(task_obj.attr("id") != first_task.attr("id"))
+	{
+		task_obj.remove().insertBefore(first_task);
+	}
+
+
+}
+//moves the task to the top of finished tasks
+function move_to_finished_top(task_obj,list_obj)
+{
+	var last_unfinished_task = list_obj.find('.task:not(.finished):last');
+	if(task_obj.attr("id") != last_unfinished_task.attr("id"))
+	{
+		task_obj.remove().insertAfter(last_unfinished_task);
+	}
+	
+}
+
+
 
 function reset_task_form () {
 // if in the list page, do not reset the list element 
@@ -36,26 +57,6 @@ $(function(){
 	});
 
 
-	// $('.task').draggable();
-
-
-	// $( "#new_task" ).on( "submit", function( event ) {
-	// 	event.preventDefault();
-
-	// 	$.ajax({
-	// 		url: $(this).attr("action"), 
-	// 		type: 'post',
-	// 		data: $(this).serialize(),
-	// 		dataType: 'json', 
-	// 		success: function (data) {
-	// 			var task = $.parseJSON(data);
-	// 			add_task_to_view(task);
-	// 		}
-	// 	}); //call the ajax function // in the success callback, strikethorough the text!
-
-	// 	console.log( $(this).serialize() );
-	// });
-
 	if($('.list_specific_view').length )
 	{
 		//hide the plus buttons as the form itself will have list-id 
@@ -63,7 +64,7 @@ $(function(){
 	}
 
 	$(document).on('click','.task_trash',function (e) {
-		var task_ele = $(this).parent('.task');
+		var task_ele = $(this).parents('.task:first');
 		var url = $(this).data('url');
 
 		//create an ajax request!
@@ -83,9 +84,7 @@ $(function(){
 
  // In that case: $target.hide('slow', function(){ $target.remove(); });
 
-
-
-	$('.list_plus').click(function (e) {
+	$(document).on('click','.list_plus', function  (e) {
 		e.preventDefault();
 
 		ele = $(this).parent(".list");
@@ -96,7 +95,7 @@ $(function(){
 
 		$(not_selector).hide('fast',function  () {
 			$(not_selector).addClass("hidden");
-		})
+		});
 		
 
 		//put the value of list id to this id: 
@@ -107,7 +106,8 @@ $(function(){
 
 	});
 
-	$(document).on('keypress','.task_name', function  (event){
+	//trigger task name save when enter is pressed when task name is editing
+	$(document).on('keypress','.task.editing', function  (event){
 		   if (event.keyCode == 13) {
         		event.preventDefault();
         		$(document).trigger('mouseup');
@@ -154,8 +154,7 @@ $(function(){
 			return;
 		}
 
-		var desc =  jq_task.children('.task_name').text();
-		var task = {'name' : desc};
+		var task = {'name' : new_content};
 
 		jq_task.addClass('ajaxing');
 		$.ajax({
@@ -180,19 +179,25 @@ $(function(){
 		var task = { 'status' : checked };
 
 		$.ajax({
-			url: url, 
+			url: url,
 			type: 'post',
 			data: { _method:'PATCH', task: task},
-			dataType: 'json', 
+			dataType: 'json',
 			success: function (data) {
 				id = "#task_name_" + id;
+				var task_obj = $(id).parent('.task');
+				var list_obj = task_obj.parents('.list');
+
 				if (checked) {
+					move_to_finished_top(task_obj,list_obj);
 					$(id).addClass("checked");
-					$(id).parent('.task').addClass('finished');
+					task_obj.addClass('finished');
+					
 				} else{
+					move_to_unfinished_top(task_obj,list_obj);
 					$(id).removeClass("checked");
 					$(id).parent('.task').removeClass('finished');
-				};
+				}
 			}
 		}); //call the ajax function // in the success callback, strikethorough the text!
 	});

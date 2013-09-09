@@ -16,8 +16,8 @@ gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.0.0'
 
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
-gem 'execjs'
-gem 'therubyracer'
+# gem 'execjs'
+# gem 'therubyracer'
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
@@ -35,7 +35,10 @@ group :doc do
 end
 
 # Use ActiveModel has_secure_password
-# gem 'bcrypt-ruby', '~> 3.0.0'
+gem 'bcrypt-ruby', '~> 3.0.0'
+
+gem 'will_paginate', '3.0.4'
+gem 'bootstrap-will_paginate', '0.0.9'
 
 # Use unicorn as the app server
 # gem 'unicorn'

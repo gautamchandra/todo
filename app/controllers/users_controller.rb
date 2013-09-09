@@ -1,10 +1,13 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
+  before_action :signed_in_user, only: [:edit, :update]
+  before_action :correct_user,   only: [:edit, :update]
+  before_action :admin_user,     only: [:destroy, :index]
 
   # GET /users
   # GET /users.json
   def index
-    @users = User.all
+    @users = User.paginate(page: params[:page])
   end
 
   # GET /users/1
@@ -28,6 +31,8 @@ class UsersController < ApplicationController
 
     respond_to do |format|
       if @user.save
+        sign_in @user
+        flash[:success] = "Welcome to the Sample App!"
         format.html { redirect_to @user, notice: 'User was successfully created.' }
         format.json { render action: 'show', status: :created, location: @user }
       else
@@ -42,6 +47,8 @@ class UsersController < ApplicationController
   def update
     respond_to do |format|
       if @user.update(user_params)
+        flash[:success] = "Profile updated"
+        sign_in @user
         format.html { redirect_to @user, notice: 'User was successfully updated.' }
         format.json { head :no_content }
       else
@@ -55,6 +62,7 @@ class UsersController < ApplicationController
   # DELETE /users/1.json
   def destroy
     @user.destroy
+    flash[:success] = "User destroyed."
     respond_to do |format|
       format.html { redirect_to users_url }
       format.json { head :no_content }
@@ -64,8 +72,10 @@ class UsersController < ApplicationController
   def planner
     @limit_tasks = 3
     @user = User.find(params[:id])
-    @lists = @user.lists
+    @lists = @user.lists.order('created_at DESC');
     @new_task = Task.new();
+    @new_list = @user.lists.new();
+    @new_list.name = "unnamed";
   end
 
   private
@@ -76,6 +86,18 @@ class UsersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
-      params.require(:user).permit(:name, :email)
+      params.require(:user).permit(:name, :email, :password, :password_confirmation)
     end
+
+    def signed_in_user
+      redirect_to signin_url, notice: "Please sign in." unless signed_in?
+    end
+
+    def correct_user
+      redirect_to(root_url) unless current_user?(@user)
+    end
+    def admin_user
+      redirect_to(root_url) unless current_user.admin?
+    end
+
 end

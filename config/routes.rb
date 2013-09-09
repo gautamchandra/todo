@@ -1,12 +1,23 @@
 Todo::Application.routes.draw do
+  
+  root 'static_pages#home'
+  get "static_pages/home"
+  get "static_pages/about"
+  get "static_pages/contact"
+  # root 'static_ pages#home'
   resources :users
 
   resources :lists
 
   resources :tasks
+  resources :sessions, only: [:new, :create, :destroy]
 
   match 'lists/:id/tasks',  to: 'lists#tasks',   via: 'get'
   match 'users/:id/planner',  to: 'users#planner',   via: 'get'
+  match 'signup', to: 'users#new', via: 'get'
+  match 'signin', to: 'sessions#new', via: 'get'
+  match 'signout', to: 'sessions#destroy', via: 'delete'
+
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

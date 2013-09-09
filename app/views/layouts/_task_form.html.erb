@@ -1,6 +1,6 @@
-<% if defined? @new_task then %>
+<% if defined? new_task then %>
 
-<%= form_for(@new_task,remote: true,html: {:class => "task_form"})  do |f| %>
+<%= form_for(new_task,remote: true,html: {:class => "task_form"}, namespace: form_namespace)  do |f| %>
 
 <div class="field">
   <%= f.text_field :name %>

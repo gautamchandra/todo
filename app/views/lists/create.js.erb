@@ -1,0 +1,5 @@
+{
+
+	<% html =  render('layouts/show_tasks_in_lists',:list => @list, :tasks => nil) %>
+	$('.list_container').prepend("<%= escape_javascript(html) %>");
+}
