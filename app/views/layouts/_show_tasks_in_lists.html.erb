@@ -1,13 +1,30 @@
 <ul class="list well span5" id="list_<%= list.id %>" data-url= <%= list_path(list)%> >
-<span class="list_name" contentEditable="true" ><%= list.name %></span>
-	
-	<a  href="#" class="btn btn-small list_save" style="display:none">
-    <i class="icon-ok"></i>
-    </a>
 
-    <a  class="btn btn-small  list_trash" >
-    <i class="icon-trash"></i>
-    </a>
+<% 
+if list.pinned then
+	pin_class = "list_pinned"
+else
+	pin_class = "list_pin"
+end
+%>
+	
+	<span class="actions">
+	    <a  class="btn btn-small  pin <%= pin_class %>" >
+	    	<%= image_tag("pin.png", size: "16") %>
+	    </a>
+		
+		<a  href="#" class="btn btn-small list_save" style="display:none">
+	    <i class="icon-ok"></i>
+	    </a>
+
+	    <a  class="btn btn-small  list_trash" >
+	    <i class="icon-trash"></i>
+	    </a>
+	</span>
+
+	<span class="list_name" contentEditable="true" ><%= list.name %></span>
+
+<% if defined? new_task then %>
 
 <%= render 'layouts/task_form', :new_task => new_task, :form_namespace => "l_#{list.id}" %>
 
@@ -15,6 +32,9 @@
 <ul class="task_container" id="task_container_<%= list.id %>">
 	<%= render 'layouts/tasks', :tasks=> tasks %>
 </ul>
+
+<% end %>
+
 
 </ul>
 

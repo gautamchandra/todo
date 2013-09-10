@@ -14,6 +14,7 @@
               </a>
               <ul class="dropdown-menu">
                 <li><%= link_to "Planner", :controller => 'users', :action => 'planner', :id => current_user.id %></li>
+                <li><%= link_to "Manage Lists", :controller => 'users', :action => 'lists', :id => current_user.id %></li>
                 <li><%= link_to "Edit Profile", edit_user_path(current_user) %></li>
                 <li class="divider"></li>
                 <li>

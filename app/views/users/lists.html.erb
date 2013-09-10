@@ -1,0 +1,13 @@
+
+
+<div class="user_lists">
+
+<%= render 'layouts/add_list', :new_list => @new_list %>
+
+<ul class="list_container">
+<% @lists.each do |list| %>
+<%= render 'layouts/show_tasks_in_lists', :list => list %>
+<% end %>
+</ul>	
+
+</div>

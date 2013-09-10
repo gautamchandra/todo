@@ -69,10 +69,18 @@ class UsersController < ApplicationController
     end
   end
 
+
+  def lists
+   @user = User.find(params[:id])
+   @lists = @user.lists.order('created_at DESC')
+   @new_list = @user.lists.new()
+   @new_list.name = "unnamed"
+  end
+
   def planner
     @limit_tasks = 3
     @user = User.find(params[:id])
-    @lists = @user.lists.order('created_at DESC');
+    @lists = @user.lists.where(:pinned => true).order('created_at DESC')
     @new_task = Task.new();
     @new_list = @user.lists.new();
     @new_list.name = "unnamed";

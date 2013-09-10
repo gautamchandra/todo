@@ -95,6 +95,46 @@ database. Press "OK" if you want to proceed';
         	}
 	});
 
+	$(document).on('click','.pin', function  (e) {
+		e.preventDefault();
+
+		var this_ele = $(this);
+		var url = this_ele.parents('.list:first').data('url');
+		var pin_status=1; 
+
+		if(this_ele.hasClass('list_pinned'))
+			pin_status = 0;
+
+		var list = {'pinned' : pin_status};
+
+
+		$.ajax({
+			url: url,
+			type: 'post',
+			data: { _method:'PATCH', list : list },
+			dataType: 'json',
+			success: function (data) {
+				if(!pin_status)
+				{
+					this_ele.removeClass('list_pinned').addClass('list_pin');
+				}
+				else
+				{
+					this_ele.removeClass('list_pin').addClass('list_pinned');
+				}
+
+				//if it is the planner page, remove the element from display!
+				if(this_ele.parents('.planner').length != 0)
+					this_ele.parents('.list:first').hide('slow').remove();
+			}
+		}); //call the ajax function // in the success callback, strikethorough the text!
+
+	});
+
+
+
+
+
 
 });
 

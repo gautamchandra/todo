@@ -174,3 +174,53 @@ footer {
 {
   color: white;
 }
+
+
+.list_pin img{
+  visibility: hidden;
+}
+
+
+.list {
+  .list_pin {
+    visibility: hidden;
+    img {
+      visibility: hidden;
+    }
+  }
+
+  &:hover .list_pin{
+    visibility: visible;
+    img {
+      visibility: visible;
+    }
+  }
+
+}
+
+
+.pin {
+}
+
+
+.add_list {
+  // float: right;
+
+}
+
+
+.user_lists .task_form {
+  display: none;
+}
+
+.actions {
+  float: right;
+}
+
+.title{
+  border: none;
+}
+
+.task_form{
+  margin-top: 10px;
+}
