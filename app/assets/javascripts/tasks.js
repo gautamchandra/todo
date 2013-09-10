@@ -91,8 +91,7 @@ $(function(){
 
 
 		//select all the text - UI improvement
-		document.execCommand('selectAll',false,null);
-		
+
 		var task_ele = $(this).parent('.task').addClass('editing');
 		var save_ele = $(this).siblings('.task_save').show('fast');
 
@@ -120,6 +119,13 @@ $(function(){
 		var jq_task = $(this).parents('.task');
 		var new_content = $.trim(jq_task.children('.task_name').html());
 		var old_content = jq_task.data('old_desc');
+
+
+		if(new_content === "")
+		{
+			jq_task.children('.task_name').html(old_content);
+			new_content = old_content;
+		}
 
 		jq_task.children('.task_name').removeAttr('contenteditable').blur();
 		if(new_content == old_content)

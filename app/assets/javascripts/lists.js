@@ -2,6 +2,10 @@ $(function(){
 
 	$(document).on('click','.list_trash',function (e) {
 		e.preventDefault();
+		confirm_text = 'The list and the corresponding tasks will be permanently deleted from \
+database. Press "OK" if you want to proceed';
+		if(!confirm(confirm_text))
+			return;
 		var list_ele = $(this).parents('.list:first');
 		var url = list_ele.data('url');
 
@@ -28,6 +32,15 @@ $(function(){
 		var old_content = jq_list.data('old_desc');
 
 		jq_list.children('.list_name').removeAttr('contenteditable').blur();
+
+		// putting back the old content in case there is no new content
+
+		if(new_content === "")
+		{
+			jq_list.children('.list_name').html(old_content);
+			new_content = old_content;
+		}
+
 		if(new_content == old_content)
 		{
 			list_saving_done(jq_list);

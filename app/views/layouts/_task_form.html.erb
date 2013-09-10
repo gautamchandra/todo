@@ -3,7 +3,7 @@
 <%= form_for(new_task,remote: true,html: {:class => "task_form"}, namespace: form_namespace)  do |f| %>
 
 <div class="field">
-  <%= f.text_field :name, {:class => "task_name"} %>
+  <%= f.text_field :name, :class => "task_name", :placeholder => ">" %>
 </div>
 
 <div class="field hidden">

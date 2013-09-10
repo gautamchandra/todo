@@ -36,6 +36,7 @@
   &:hover .list_trash{
     visibility: visible;
   }
+
 }
 /*---- copied from the demo app */
 
@@ -101,7 +102,6 @@ p {
   margin-right: 10px;
   font-size: 1.7em;
   color: white;
-  text-transform: uppercase;
   letter-spacing: -1px;
   padding-top: 9px;
   font-weight: bold;
@@ -163,4 +163,8 @@ footer {
 */
 .list.editing {
   font-size: 20px;
+}
+
+.list_name{
+  font-weight: bold;
 }
