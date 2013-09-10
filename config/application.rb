@@ -21,4 +21,5 @@ module Todo
     # config.i18n.default_locale = :de
     config.assets.precompile += %w(*.png *.jpg *.jpeg *.gif)
   end
+  NAME = 'TODO Mate'
 end

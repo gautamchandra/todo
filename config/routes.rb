@@ -13,7 +13,7 @@ Todo::Application.routes.draw do
   resources :sessions, only: [:new, :create, :destroy]
 
   match 'lists/:id/tasks',  to: 'lists#tasks',   via: 'get'
-  match 'users/:id/planner',  to: 'users#planner',   via: 'get'
+  match 'users/:id/planner',  to: 'users#planner',   via: 'get', as: 'planner'
   match 'signup', to: 'users#new', via: 'get'
   match 'signin', to: 'sessions#new', via: 'get'
   match 'signout', to: 'sessions#destroy', via: 'delete'

@@ -1,5 +1,8 @@
 class TasksController < ApplicationController
   before_action :set_task, only: [:show, :edit, :update, :destroy]
+  before_action :signed_in_user, only: [:show, :edit, :update, :destroy, :index]
+  before_action :task_owner, only: [:show, :edit, :update, :destroy]
+  before_action :admin_user, only: [:index]
 
   # GET /tasks
   # GET /tasks.json
@@ -73,4 +76,19 @@ class TasksController < ApplicationController
     def task_params
       params.require(:task).permit(:name, :parent, :due, :list_id, :status)
     end
+
+
+    def signed_in_user
+      redirect_to signin_url, notice: "Please sign in." unless signed_in?
+    end
+
+    def task_owner
+      redirect_to(root_url) unless current_user?(@task.list.user)
+    end
+
+    def admin_user
+      redirect_to(root_url) unless current_user.admin?
+    end
+
+
 end

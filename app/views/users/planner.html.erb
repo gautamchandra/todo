@@ -16,7 +16,7 @@
 
 
 <ul class="list_container">
-<%= @lists.each do |list| %>
+<% @lists.each do |list| %>
 <%= render 'layouts/show_tasks_in_lists', :list => list, :tasks => list.tasks.order('status'),
 								:new_task => list.tasks.new() %>
 <% end %>

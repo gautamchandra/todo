@@ -1,5 +1,8 @@
 class ListsController < ApplicationController
   before_action :set_list, only: [:show, :edit, :update, :destroy]
+  before_action :signed_in_user, only: [:show, :edit, :update, :destroy, :planner, :index]
+  before_action :list_owner, only: [:show, :edit, :update, :destroy]
+  before_action :admin_user, only: [:index]
 
   # GET /lists
   # GET /lists.json
@@ -25,6 +28,7 @@ class ListsController < ApplicationController
   # POST /lists.json
   def create
     @list = List.new(list_params)
+    @list.user_id = current_user.id
     respond_to do |format|
       if @list.save
         @new_task = @list.tasks.new();
@@ -63,11 +67,11 @@ class ListsController < ApplicationController
   end
 
 
-  def tasks
-    @list = List.find(params[:id])
-    @tasks = @list.tasks
-    @new_task = @list.tasks.new();
-  end
+  # def tasks
+  #   @list = List.find(params[:id])
+  #   @tasks = @list.tasks
+  #   @new_task = @list.tasks.new();
+  # end
 
   private
     # Use callbacks to share common setup or constraints between actions.
@@ -77,6 +81,21 @@ class ListsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def list_params
-      params.require(:list).permit(:name, :user_id)
+      params.require(:list).permit(:name)
     end
+
+    def signed_in_user
+      redirect_to signin_url, notice: "Please sign in." unless signed_in?
+    end
+
+    def list_owner
+      redirect_to(root_url) unless current_user?(@list.user)
+    end
+
+    def admin_user
+      redirect_to(root_url) unless current_user.admin?
+    end
+
+
+
 end

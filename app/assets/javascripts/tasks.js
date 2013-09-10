@@ -36,6 +36,7 @@ function task_saving_done (jq_task) {
 	jq_task.removeClass('ajaxing editing');
 	jq_task.children('.task_save').hide('fast');
 	jq_task.blur();
+	$(document).off('mouseup');
 }
 
 
@@ -95,7 +96,7 @@ $(function(){
 		var task_ele = $(this).parent('.task').addClass('editing');
 		var save_ele = $(this).siblings('.task_save').show('fast');
 
-		task_ele.data('old_desc',$.trim($(this).html()));
+		task_ele.data('old_desc',$.trim($(this).text()));
 
 		//if clicked outside, the task details are saved! 
 		$(document).mouseup(function (e)
@@ -117,13 +118,13 @@ $(function(){
 		e.preventDefault();
 
 		var jq_task = $(this).parents('.task');
-		var new_content = $.trim(jq_task.children('.task_name').html());
+		var new_content = $.trim(jq_task.children('.task_name').text());
 		var old_content = jq_task.data('old_desc');
 
 
 		if(new_content === "")
 		{
-			jq_task.children('.task_name').html(old_content);
+			jq_task.children('.task_name').text(old_content);
 			new_content = old_content;
 		}
 

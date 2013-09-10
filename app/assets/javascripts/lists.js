@@ -28,7 +28,7 @@ database. Press "OK" if you want to proceed';
 		e.preventDefault();
 
 		var jq_list = $(this).parents('.list');
-		var new_content = $.trim(jq_list.children('.list_name').html());
+		var new_content = $.trim(jq_list.children('.list_name').text());
 		var old_content = jq_list.data('old_desc');
 
 		jq_list.children('.list_name').removeAttr('contenteditable').blur();
@@ -37,7 +37,7 @@ database. Press "OK" if you want to proceed';
 
 		if(new_content === "")
 		{
-			jq_list.children('.list_name').html(old_content);
+			jq_list.children('.list_name').text(old_content);
 			new_content = old_content;
 		}
 
@@ -46,6 +46,7 @@ database. Press "OK" if you want to proceed';
 			list_saving_done(jq_list);
 			return;
 		}
+
 
 		var list = {'name' : new_content};
 
@@ -69,14 +70,14 @@ database. Press "OK" if you want to proceed';
 		var list_ele = $(this).parent('.list').addClass('editing');
 		var save_ele = $(this).siblings('.list_save').show('fast');
 
-		list_ele.data('old_desc',$.trim($(this).html()));
+		list_ele.data('old_desc',$.trim($(this).text()));
 		var this_ele = $(this);
 
 		//if clicked outside, the list details are saved! 
 		$(document).mouseup(function (e)
 		{
 
-		    if (!this_ele.is(e.target)) // if the target of the click isn't the container...
+		    if (!this_ele.is(e.target) && !save_ele.is(e.target)) // if the target of the click isn't the container...
 		    {
 
 		        save_ele.trigger('click');
@@ -102,4 +103,5 @@ function list_saving_done (jq_list) {
 	jq_list.removeClass('ajaxing editing');
 	jq_list.children('.list_save').hide('fast');
 	jq_list.blur();
+	$(document).off('mouseup');
 }

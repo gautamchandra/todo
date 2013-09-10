@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: [:show, :edit, :update, :destroy]
-  before_action :signed_in_user, only: [:edit, :update]
-  before_action :correct_user,   only: [:edit, :update]
+  before_action :set_user, only: [:show, :edit, :update, :destroy, :planner]
+  before_action :signed_in_user, only: [:edit, :update, :planner]
+  before_action :correct_user,   only: [:edit, :update, :planner]
   before_action :admin_user,     only: [:destroy, :index]
 
   # GET /users
@@ -32,8 +32,8 @@ class UsersController < ApplicationController
     respond_to do |format|
       if @user.save
         sign_in @user
-        flash[:success] = "Welcome to the Sample App!"
-        format.html { redirect_to @user, notice: 'User was successfully created.' }
+        # flash[:success] = "Welcome to the Sample App!"
+        format.html { redirect_to action: 'planner', id: @user.id, notice: 'Time to plan!' }
         format.json { render action: 'show', status: :created, location: @user }
       else
         format.html { render action: 'new' }
