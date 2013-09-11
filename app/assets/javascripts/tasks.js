@@ -188,7 +188,7 @@ $(function(){
 	});
 
 
-	$(".task_form .task_name").keypress(function(event) {
+	$(document).on('keypress',".task_form .task_name",function (event) {
 	    if (event.which == 13) {
 	        event.preventDefault();
 	        $(this).closest('.task_form').submit();

@@ -15,5 +15,7 @@
 //= require bootstrap
 //= require turbolinks
 //= require tasks
+//= require users
+//= require lists
 //= require_tree .
 

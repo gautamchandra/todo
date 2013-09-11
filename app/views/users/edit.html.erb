@@ -13,12 +13,14 @@
       <%= f.text_field :email %>
 
       <%= f.label :password %>
-      <%= f.password_field :password %>
+      <%= f.password_field :password, :placeholder => 'Leave password blank if dont want to change', :class => 'edit_password' %>
 
       <%= f.label :password_confirmation, "Confirm Password" %>
-      <%= f.password_field :password_confirmation %>
+      <%= f.password_field :password_confirmation, :placeholder => 'Leave password blank if dont want to change', :class => 'edit_password' %>
 
-      <%= f.submit "Save changes", class: "btn btn-large btn-primary" %>
+      <div>
+       <%= f.submit "Save changes", class: "btn btn-large btn-primary save_edit_user" %>
+      </div>
     <% end %>
 
   </div>

@@ -9,7 +9,8 @@ class User < ActiveRecord::Base
                     uniqueness: { case_sensitive: false }
 
     has_secure_password
-    validates :password, length: { minimum: 6 }
+    # validates :password, length: { minimum: 6 }
+    validate :password_length
 	
 	def User.new_remember_token
 	   SecureRandom.urlsafe_base64
@@ -24,4 +25,7 @@ class User < ActiveRecord::Base
 	      self.remember_token = User.encrypt(User.new_remember_token)
 	    end
 
+	    def password_length
+		  errors.add(:password, "length should be greater than 5") unless password.nil? || (password.length >= 6)
+	    end
 end
