@@ -189,7 +189,21 @@ footer {
     }
   }
 
+  .unpin {
+    visibility: hidden;
+    img {
+      visibility: hidden;
+    }
+  }
+
   &:hover .list_pin{
+    visibility: visible;
+    img {
+      visibility: visible;
+    }
+  }
+
+  &:hover .unpin {
     visibility: visible;
     img {
       visibility: visible;
@@ -213,9 +227,10 @@ footer {
   display: none;
 }
 
-.actions {
+.list_actions {
   float: right;
 }
+
 
 .title{
   border: none;

@@ -1,17 +1,6 @@
 <ul class="list well span5" id="list_<%= list.id %>" data-url= <%= list_path(list)%> >
 
-<% 
-if list.pinned then
-	pin_class = "list_pinned"
-else
-	pin_class = "list_pin"
-end
-%>
-	
-	<span class="actions">
-	    <a  class="btn btn-small  pin <%= pin_class %>" >
-	    	<%= image_tag("pin.png", size: "16") %>
-	    </a>
+	<span class="list_actions">
 		
 		<a  href="#" class="btn btn-small list_save" style="display:none">
 	    <i class="icon-ok"></i>
@@ -20,6 +9,27 @@ end
 	    <a  class="btn btn-small  list_trash" >
 	    <i class="icon-trash"></i>
 	    </a>
+
+	    <% if defined? new_task %>
+
+	    <a  class="btn btn-small  unpin" >
+	    	<%= image_tag("unpin.png", size: "16") %>
+	    </a>
+
+	    <% else %>
+	    	<% 
+				if list.pinned then
+					pin_class = "list_pinned"
+				else
+					pin_class = "list_pin"
+				end
+			%>
+		    <a  class="btn btn-small  pin <%= pin_class %>" >
+		    	<%= image_tag("pin.png", size: "16") %>
+		    </a>
+
+	    <% end %>
+
 	</span>
 
 	<span class="list_name" contentEditable="true" ><%= list.name %></span>

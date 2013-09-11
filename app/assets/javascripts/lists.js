@@ -2,11 +2,11 @@ $(function(){
 
 	$(document).on('click','.list_trash',function (e) {
 		e.preventDefault();
-		confirm_text = 'The list and the corresponding tasks will be permanently deleted from \
+		var confirm_text = 'The list and the corresponding tasks will be permanently deleted from \
 database. Press "OK" if you want to proceed';
 		if(!confirm(confirm_text))
 			return;
-		var list_ele = $(this).parents('.list:first');
+		var list_ele = $(this).closest('.list');
 		var url = list_ele.data('url');
 
 		//create an ajax request!
@@ -27,17 +27,17 @@ database. Press "OK" if you want to proceed';
 
 		e.preventDefault();
 
-		var jq_list = $(this).parents('.list');
-		var new_content = $.trim(jq_list.children('.list_name').text());
+		var jq_list = $(this).closest('.list');
+		var new_content = $.trim(jq_list.find('.list_name:first').text());
 		var old_content = jq_list.data('old_desc');
 
-		jq_list.children('.list_name').removeAttr('contenteditable').blur();
+		jq_list.find('.list_name:first').removeAttr('contenteditable').blur();
 
 		// putting back the old content in case there is no new content
 
 		if(new_content === "")
 		{
-			jq_list.children('.list_name').text(old_content);
+			jq_list.find('.list_name:first').text(old_content);
 			new_content = old_content;
 		}
 
@@ -67,8 +67,8 @@ database. Press "OK" if you want to proceed';
 
 		//if nothing else is being edited:
 		
-		var list_ele = $(this).parent('.list').addClass('editing');
-		var save_ele = $(this).siblings('.list_save').show('fast');
+		var list_ele = $(this).closest('.list').addClass('editing');
+		var save_ele = list_ele.find('.list_save:first').show('fast');
 
 		list_ele.data('old_desc',$.trim($(this).text()));
 		var this_ele = $(this);
@@ -95,11 +95,41 @@ database. Press "OK" if you want to proceed';
         	}
 	});
 
+
+	$(document).on('click','.unpin', function  (e) {
+		e.preventDefault();
+
+
+		var confirm_text = 'This action unpins the list from the planner board. You can pin it again from Manage Lists page. \
+Press "OK" if you want to proceed';
+		if(!confirm(confirm_text))
+			return;
+
+
+		var this_ele = $(this);
+		var url = this_ele.closest('.list').data('url');
+		var list = {'pinned' : 0};
+
+
+		$.ajax({
+			url: url,
+			type: 'post',
+			data: { _method:'PATCH', list : list },
+			dataType: 'json',
+			success: function (data) {
+				this_ele.closest('.list').hide('slow',function() {
+					$(this).remove();
+				});
+			}
+		}); //call the ajax function // in the success callback, strikethorough the text!
+
+	});
+
 	$(document).on('click','.pin', function  (e) {
 		e.preventDefault();
 
 		var this_ele = $(this);
-		var url = this_ele.parents('.list:first').data('url');
+		var url = this_ele.closest('.list').data('url');
 		var pin_status=1; 
 
 		if(this_ele.hasClass('list_pinned'))
@@ -123,9 +153,6 @@ database. Press "OK" if you want to proceed';
 					this_ele.removeClass('list_pin').addClass('list_pinned');
 				}
 
-				//if it is the planner page, remove the element from display!
-				if(this_ele.parents('.planner').length != 0)
-					this_ele.parents('.list:first').hide('slow').remove();
 			}
 		}); //call the ajax function // in the success callback, strikethorough the text!
 
@@ -139,9 +166,9 @@ database. Press "OK" if you want to proceed';
 });
 
 function list_saving_done (jq_list) {
-	jq_list.children('.list_name').attr('contenteditable','true');
+	jq_list.find('.list_name:first').attr('contenteditable','true');
 	jq_list.removeClass('ajaxing editing');
-	jq_list.children('.list_save').hide('fast');
+	jq_list.find('.list_save:first').hide('fast');
 	jq_list.blur();
 	$(document).off('mouseup');
 }

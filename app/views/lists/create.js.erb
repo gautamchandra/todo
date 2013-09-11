@@ -1,5 +1,12 @@
 {
 
-	<% html =  render('layouts/show_tasks_in_lists',:list => @list, :tasks => nil, :new_task => @new_task) %>
+	if($('.user_lists').length == 0)
+	{
+		<% html =  render('layouts/show_tasks_in_lists',:list => @list, :tasks => nil, :new_task => @new_task) %>
+	}
+	else
+	{
+		<% html =  render('layouts/show_tasks_in_lists',:list => @list, :tasks => nil) %>
+	}
 	$('.list_container').prepend("<%= escape_javascript(html) %>");
 }
