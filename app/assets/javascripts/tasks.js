@@ -45,14 +45,6 @@ function task_saving_done (jq_task) {
 
 
 $(function(){
-	$('.task_checkbox').each(function(i, obj) {
-		$(this).prop('checked',false);
-	});
-
-	$('.task_checkbox.checked').each(function(i, obj) {
-		$(this).prop('checked',true);
-		$(this).closest('.task').addClass('finished');
-	});
 
 	if($('.list_specific_view').length )
 	{
