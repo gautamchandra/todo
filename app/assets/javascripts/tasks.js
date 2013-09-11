@@ -188,6 +188,13 @@ $(function(){
 	});
 
 
+	$(".task_form .task_name").keypress(function(event) {
+	    if (event.which == 13) {
+	        event.preventDefault();
+	        $(this).closest('.task_form').submit();
+	    }
+	});
+
 	// strikethrough($('.ele')); 
 });
 
