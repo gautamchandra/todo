@@ -1,12 +1,40 @@
 <div class="user_lists">
 
 
-<%= render 'layouts/add_list', :new_list => @new_list %>
-
 <ul class="list_container">
-<% @lists.each do |list| %>
 
-<%= render 'layouts/show_tasks_in_lists', :list => list, :tasks => nil %>
+<% @lists.each do |list| %>
+<ul class="list well span5" id="list_<%= list.id %>" data-url= <%= list_path(list)%> >
+
+	<span class="list_actions">
+		
+		<a  href="#" class="btn btn-small list_save" style="display:none">
+	    <i class="icon-ok"></i>
+	    </a>
+
+	    <a  class="btn btn-small  list_trash" >
+	    <i class="icon-trash"></i>
+	    </a>
+
+	    	<% 
+				if list.pinned then
+					pin_class = "list_pinned"
+				else
+					pin_class = "list_pin"
+				end
+			%>
+		    <a  class="btn btn-small  pin <%= pin_class %>" >
+		    	<%= image_tag("pin.png", size: "16") %>
+		    </a>
+
+	    
+	</span>
+
+	<span class="list_name" contentEditable="true" ><%= list.name %></span>
+</ul>
+
+
+
 
 <% end %>
 </ul>	

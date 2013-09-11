@@ -10,25 +10,10 @@
 	    <i class="icon-trash"></i>
 	    </a>
 
-	    <% if defined? new_task %>
 
 	    <a  class="btn btn-small  unpin" >
 	    	<%= image_tag("unpin.png", size: "16") %>
 	    </a>
-
-	    <% else %>
-	    	<% 
-				if list.pinned then
-					pin_class = "list_pinned"
-				else
-					pin_class = "list_pin"
-				end
-			%>
-		    <a  class="btn btn-small  pin <%= pin_class %>" >
-		    	<%= image_tag("pin.png", size: "16") %>
-		    </a>
-
-	    <% end %>
 
 	</span>
 
