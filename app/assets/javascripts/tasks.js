@@ -155,12 +155,10 @@ $(function(){
 				var list_obj = task_obj.closest('.list');
 
 				if (checked) {
-					move_to_finished_top(task_obj,list_obj);
 					$(id).addClass("checked");
 					task_obj.addClass('finished');
 					
 				} else{
-					move_to_unfinished_top(task_obj,list_obj);
 					$(id).removeClass("checked");
 					$(id).closest('.task').removeClass('finished');
 				}
