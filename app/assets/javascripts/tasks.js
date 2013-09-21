@@ -1,25 +1,14 @@
 function move_to_unfinished_top (task_obj,list_obj) {
 	var first_task = list_obj.find('.task:first');
 	if(task_obj.attr("id") != first_task.attr("id"))
-	{
-		task_obj.hide('fast', function() {
-			$(this).remove().insertBefore(first_task).show('fast');
-		});
-	}
-
-
+		$(task_obj).remove().insertBefore(first_task).show('fast');
 }
 //moves the task to the top of finished tasks
 function move_to_finished_top(task_obj,list_obj)
 {
 	var last_unfinished_task = list_obj.find('.task:not(.finished):last');
 	if(task_obj.attr("id") != last_unfinished_task.attr("id"))
-	{
-		task_obj.hide('fast', function () {
-			$(this).remove().insertAfter(last_unfinished_task).show('fast');
-		});
-	}
-	
+		$(task_obj).remove().insertAfter(last_unfinished_task).show('fast');
 }
 
 
