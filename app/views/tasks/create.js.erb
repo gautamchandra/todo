@@ -24,7 +24,7 @@ list_ele = $(list_id);
 if(list_ele.length != 0)
 {
 	<% html =  render('layouts/task',:task => @task) %>
-	 	list_ele.prepend("<%= escape_javascript(html) %>");
+	 	list_ele.append("<%= escape_javascript(html) %>");
 }
 
 //reset the task form of the list
