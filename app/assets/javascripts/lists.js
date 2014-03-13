@@ -73,13 +73,13 @@ database. Press "OK" if you want to proceed';
 		list_ele.data('old_desc',$.trim($(this).text()));
 		var this_ele = $(this);
 
+		
+
 		//if clicked outside, the list details are saved! 
 		$(document).mouseup(function (e)
 		{
-
 		    if (!this_ele.is(e.target) && !save_ele.is(e.target)) // if the target of the click isn't the container...
 		    {
-
 		        save_ele.trigger('click');
 		        $(document).off('mouseup');
 		    }

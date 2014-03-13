@@ -67,11 +67,6 @@ class ListsController < ApplicationController
   end
 
 
-  # def tasks
-  #   @list = List.find(params[:id])
-  #   @tasks = @list.tasks
-  #   @new_task = @list.tasks.new();
-  # end
 
   private
     # Use callbacks to share common setup or constraints between actions.

@@ -1,4 +1,5 @@
 <% if tasks then %>
+<% tasks = tasks.reject{|t| t.name==nil} %>
 
 <% tasks.each do |task| %>
 
